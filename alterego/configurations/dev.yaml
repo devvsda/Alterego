@@ -1,0 +1,44 @@
+
+environment: dev
+applicationName: alterego-core
+
+authToken: ya29.ImexB65nx1PnhtKgQo0dN3xoWO7VBYSZEiEs33giPsucGpwwUYkjtibIBnIwkC2IYgXO4mL1jmA3RwR-H981wA6U0B7BTxLSZS7GSBS7QMmpTHPv93cvkS6uElY9uyuRIOHySfoR_-xu
+apiKey: AIzaSyAa8yy0GdcGPHdtD083HiGGx_S0vMPScDM
+calendarId: mail2jhamb@gmail.com
+
+
+server:
+  rootPath: /alterego-core
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+# Logging settings.
+logging:
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+  # Logger-specific levels.
+  loggers:
+    # Sets the level for 'com.example.app' to DEBUG.
+    com.example.app: INFO
+    # Redirects SQL logs to a separate file
+    org.hibernate.SQL:
+      level: INFO
+
+# Logback's Time Based Rolling Policy - archivedLogFilenamePattern: /tmp/shephard-core-application-%d{yyyy-MM-dd}.log.gz
+# Logback's Size and Time Based Rolling Policy -  archivedLogFilenamePattern: /tmp/shephard-core-application-%d{yyyy-MM-dd}-%i.log.gz
+# Logback's Fixed Window Rolling Policy -  archivedLogFilenamePattern: /tmp/shephard-core-application-%i.log.gz
+
+  appenders:
+    - type: console
+    - type: file
+      threshold: INFO
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      currentLogFilename: /tmp/application-alterego.log
+      archivedLogFilenamePattern: /tmp/alterego-core-application-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 7
+      timeZone: UTC
+      maxFileSize: 10MB
