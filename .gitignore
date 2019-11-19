@@ -29,3 +29,4 @@ target
 tokens
 *.iml
 credentials.json
+dependency-reduced-pom.xml
