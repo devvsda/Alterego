@@ -6,6 +6,7 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventAttendee;
 import com.google.common.base.Strings;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -39,9 +40,9 @@ public class FlightUtils {
         //return true;
     }
 
-    public static BookingInfo getBookingInfo(Event event) {
-        List<EventAttendee> attendees = event.getAttendees();
-        String email = attendees.get(0).getEmail();
+    public static BookingInfo getBookingInfo(LinkedHashMap event) {
+        List<LinkedHashMap<String, String>> attendees = (List<LinkedHashMap<String, String>>) event.get("attendees");
+        String email = ((LinkedHashMap)attendees.get(0)).get("email").toString();
         BookingInfo bookingInfo = new BookingInfo();
         bookingInfo.setEmailId(email);
         return bookingInfo;

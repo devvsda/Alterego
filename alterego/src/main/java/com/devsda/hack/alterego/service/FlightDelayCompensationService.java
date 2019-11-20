@@ -4,10 +4,9 @@ import com.devsda.hack.alterego.gsuitoperations.CalendarOperations;
 import com.devsda.hack.alterego.model.BookingInfo;
 import com.devsda.hack.alterego.utils.FlightUtils;
 import com.devsda.hack.alterego.utils.MailUtils;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.Events;
 import com.google.inject.Inject;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 // @Singleton
@@ -21,11 +20,11 @@ public class FlightDelayCompensationService {
 //    }
 
     public void handleFlightDelayCompensation() throws Exception {
-        Events events = calOps.listCalendarEvents();
-        List<Event> items = events.getItems();
-        if (items != null) {
-            for (Event e : items) {
-                if (FlightUtils.isFlightEvent(e.getSummary()) && FlightUtils.isFlightDelayed(e.getSummary())) {
+        List<LinkedHashMap> eventItems = calOps.listCalendarEvents();
+        if (eventItems != null) {
+            for (LinkedHashMap<String, String> e : eventItems) {
+                String summary = e.get("summary");
+                if (FlightUtils.isFlightEvent(summary) && FlightUtils.isFlightDelayed(summary)) {
                     BookingInfo bookingInfo = FlightUtils.getBookingInfo(e);
                     //To Do: mail sending part should be async
                     MailUtils.sendMail(bookingInfo);

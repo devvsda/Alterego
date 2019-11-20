@@ -11,8 +11,7 @@ import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 //@Singleton
 public class CalendarOperations {
@@ -26,13 +25,13 @@ public class CalendarOperations {
 //        this.alteregoConfiguration = alteregoConfiguration;
 //    }
 
-    public Events listCalendarEvents() throws Exception {
+    public List<LinkedHashMap> listCalendarEvents() throws Exception {
 
         String hostname = "https://www.googleapis.com";
         String uri = "/calendar/v3/calendars/{calendarId}/events".replace("{calendarId}", alteregoConfiguration.getCalendarId());
 
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("maxResults", "10");
+        parameters.put("maxResults", "20");
         parameters.put("key", alteregoConfiguration.getApiKey());
 
         Map<String, String> headers = new HashMap<>();
@@ -53,9 +52,7 @@ public class CalendarOperations {
         HttpMethod httpGetMethod = new HttpGetMethod();
 
         Calendar calendar = httpGetMethod.call(Protocol.HTTPS, "www.googleapis.com", null, "/calendar/v3/calendars/mail2jhamb@gmail.com/events", parameters, headers, null, Calendar.class);
-//
-//        calendar.get("items");
-//        ((ArrayList) calendar.get("items")).get(0)
-        return null;
+        List<LinkedHashMap> items = (List<LinkedHashMap>)calendar.get("items");
+        return items;
     }
 }
