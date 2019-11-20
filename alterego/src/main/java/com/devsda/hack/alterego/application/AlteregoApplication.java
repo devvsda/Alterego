@@ -45,7 +45,9 @@ public class AlteregoApplication extends Application<AlteregoConfiguration> {
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
         environment.jersey().register(HealthCheckResources.class);
-        environment.jersey().register(injector.getInstance(FlightDelayCompensationAgent.class));
+        FlightDelayCompensationService fdcService = injector.getInstance(FlightDelayCompensationService.class);
+        fdcService.handleFlightDelayCompensation();
+        //environment.jersey().register(injector.getInstance(FlightDelayCompensationAgent.class));
     }
 
     /**

@@ -7,9 +7,11 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.common.base.Strings;
 
 import java.util.List;
+import java.util.Random;
 
 public class FlightUtils {
 
+    private static boolean[] flightDelayFake = {true, true, true, false};
     public static boolean isFlightEvent(String eventSummary) {
         if(!Strings.isNullOrEmpty(eventSummary)) {
             return eventSummary.startsWith("Flight to");
@@ -27,9 +29,14 @@ public class FlightUtils {
         return null;
     }
 
+    //probability of returning true is 75%
     public static boolean isFlightDelayed(String eventSummary) {
-        CarrierInfo carrierInfo = getCarrierInfo(eventSummary);
-        return true;
+        Random rand = new Random();
+        int idx = rand.nextInt(4);
+        return flightDelayFake[idx];
+        //to do : if flight stats or some other service works, we can see if below information is required
+        //CarrierInfo carrierInfo = getCarrierInfo(eventSummary);
+        //return true;
     }
 
     public static BookingInfo getBookingInfo(Event event) {
