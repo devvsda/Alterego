@@ -4,6 +4,7 @@ import com.devsda.hack.alterego.ApplicationContextUtil;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.services.calendar.model.Calendar;
+import com.google.api.services.calendar.model.Events;
 import com.google.api.services.gmail.Gmail;
 import com.google.inject.Injector;
 import org.junit.AfterClass;
@@ -34,7 +35,7 @@ public class CalendarOperationsTest {
     public void getMessagesTest() throws Exception {
 
 
-        Calendar calendar = calendarOperations.listCalendarEvents();
+        Events calendar = calendarOperations.listCalendarEvents();
         log.info(String.format("Calendar ressponse : %s", calendar) );
         System.out.println(calendar);
     }

@@ -1,8 +1,11 @@
 package com.devsda.hack.alterego.application;
 
 import com.devsda.hack.alterego.constant.AlteregoConstants;
+import com.devsda.hack.alterego.gsuitoperations.CalendarOperations;
 import com.devsda.hack.alterego.model.AlteregoConfiguration;
+import com.devsda.hack.alterego.ressource.FlightDelayCompensationAgent;
 import com.devsda.hack.alterego.ressource.HealthCheckResources;
+import com.devsda.hack.alterego.service.FlightDelayCompensationService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -12,6 +15,7 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Singleton;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import java.util.EnumSet;
@@ -41,6 +45,7 @@ public class AlteregoApplication extends Application<AlteregoConfiguration> {
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
         environment.jersey().register(HealthCheckResources.class);
+        environment.jersey().register(injector.getInstance(FlightDelayCompensationAgent.class));
     }
 
     /**
@@ -60,6 +65,10 @@ public class AlteregoApplication extends Application<AlteregoConfiguration> {
 
                     // Other objects
                     bind(AlteregoConfiguration.class).toInstance(alteregoConfiguration);
+                    CalendarOperations calops = new CalendarOperations(alteregoConfiguration);
+                    bind(CalendarOperations.class).toInstance(calops);
+                    FlightDelayCompensationService fdcService = new FlightDelayCompensationService(calops);
+                    bind(FlightDelayCompensationService.class).toInstance(fdcService);
                 } catch (Exception  e) {
                     log.error("Failed to create DI tree", e);
                 }

@@ -5,23 +5,27 @@ import com.devsda.hack.alterego.model.AlteregoConfiguration;
 import com.devsda.utils.httputils.HttpMethod;
 import com.devsda.utils.httputils.constants.Protocol;
 import com.devsda.utils.httputils.methods.HttpGetMethod;
-import com.google.api.services.calendar.model.Calendar;
+import com.google.api.services.calendar.model.Events;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Singleton
 public class CalendarOperations {
 
     private static final Logger log = LoggerFactory.getLogger(CalendarOperations.class);
 
-    @Inject
     private AlteregoConfiguration alteregoConfiguration;
 
+    public CalendarOperations(AlteregoConfiguration alteregoConfiguration) {
+        this.alteregoConfiguration = alteregoConfiguration;
+    }
 
-    public Calendar listCalendarEvents() throws Exception {
+    public Events listCalendarEvents() throws Exception {
 
         String hostname = "https://www.googleapis.com";
         String uri = "/calendar/v3/calendars/{calendarId}/events".replace("{calendarId}", alteregoConfiguration.getCalendarId());
@@ -47,8 +51,8 @@ public class CalendarOperations {
 
         HttpMethod httpGetMethod = new HttpGetMethod();
 
-        Calendar calendar = httpGetMethod.call(Protocol.HTTPS, "www.googleapis.com", null, "/calendar/v3/calendars/mail2jhamb@gmail.com/events", parameters, headers, null, Calendar.class);
+        Events events = httpGetMethod.call(Protocol.HTTPS, "www.googleapis.com", null, "/calendar/v3/calendars/mail2jhamb@gmail.com/events", parameters, headers, null, Events.class);
 
-        return calendar;
+        return events;
     }
 }

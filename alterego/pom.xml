@@ -238,7 +238,7 @@
                             implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                     <transformer
                             implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                        <mainClass>com.devsda.platform.shepherdcore.application.ShepherdApplication</mainClass>
+                        <mainClass>com.devsda.hack.alterego.application.AlteregoApplication</mainClass>
                     </transformer>
                 </transformers>
             </configuration>

@@ -16,6 +16,7 @@ public class AlteregoConstants {
 
     public static final class Resources {
         public static final String HealthCheck = "/healthCheck";
+        public static final String FlightDelayCompenationAgent = "/flightDelayCompensationAgent";
 
         public static final String REGISTRATION = "/register";
         public static final String RETRIEVE = "/retrieve";
