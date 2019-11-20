@@ -6,9 +6,8 @@ import com.devsda.hack.alterego.utils.FlightUtils;
 import com.devsda.hack.alterego.utils.MailUtils;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
+import com.google.inject.Inject;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.List;
 
 // @Singleton

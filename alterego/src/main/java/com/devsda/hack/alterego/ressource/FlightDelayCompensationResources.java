@@ -2,10 +2,10 @@ package com.devsda.hack.alterego.ressource;
 
 import com.devsda.hack.alterego.constant.AlteregoConstants;
 import com.devsda.hack.alterego.service.FlightDelayCompensationService;
+import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

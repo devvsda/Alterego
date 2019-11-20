@@ -8,7 +8,6 @@ import com.devsda.utils.httputils.methods.HttpGetMethod;
 import com.google.api.services.calendar.model.Calendar;
 import com.google.api.services.calendar.model.Events;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

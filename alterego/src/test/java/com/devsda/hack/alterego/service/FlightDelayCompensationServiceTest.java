@@ -1,8 +1,6 @@
 package com.devsda.hack.alterego.service;
 
 import com.devsda.hack.alterego.ApplicationContextUtil;
-import com.devsda.hack.alterego.gsuitoperations.CalendarOperations;
-import com.devsda.hack.alterego.gsuitoperations.CalendarOperationsTest;
 import com.google.inject.Injector;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

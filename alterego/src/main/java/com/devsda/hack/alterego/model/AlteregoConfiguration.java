@@ -2,7 +2,6 @@ package com.devsda.hack.alterego.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
-import io.dropwizard.db.DataSourceFactory;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
