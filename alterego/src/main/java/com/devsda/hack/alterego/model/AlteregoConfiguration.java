@@ -34,8 +34,8 @@ public class AlteregoConfiguration extends Configuration implements Serializable
         return environment;
     }
 
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
+    public void setEnvironment(String environment) {
+        this.environment = Environment.valueOf(environment);
     }
 
     public String getApplicationName() {

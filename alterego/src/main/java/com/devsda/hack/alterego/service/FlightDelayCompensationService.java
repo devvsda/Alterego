@@ -11,14 +11,15 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 
-@Singleton
+// @Singleton
 public class FlightDelayCompensationService {
 
+    @Inject
     private CalendarOperations calOps;
 
-    public FlightDelayCompensationService(CalendarOperations calOps) {
-        this.calOps = calOps;
-    }
+//    public FlightDelayCompensationService(CalendarOperations calOps) {
+//        this.calOps = calOps;
+//    }
 
     public void handleFlightDelayCompensation() throws Exception {
         Events events = calOps.listCalendarEvents();

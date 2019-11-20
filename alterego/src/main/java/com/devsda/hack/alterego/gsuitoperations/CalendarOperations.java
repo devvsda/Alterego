@@ -5,6 +5,7 @@ import com.devsda.hack.alterego.model.AlteregoConfiguration;
 import com.devsda.utils.httputils.HttpMethod;
 import com.devsda.utils.httputils.constants.Protocol;
 import com.devsda.utils.httputils.methods.HttpGetMethod;
+import com.google.api.services.calendar.model.Calendar;
 import com.google.api.services.calendar.model.Events;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -14,16 +15,17 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-@Singleton
+//@Singleton
 public class CalendarOperations {
 
     private static final Logger log = LoggerFactory.getLogger(CalendarOperations.class);
 
+    @Inject
     private AlteregoConfiguration alteregoConfiguration;
-
-    public CalendarOperations(AlteregoConfiguration alteregoConfiguration) {
-        this.alteregoConfiguration = alteregoConfiguration;
-    }
+//
+//    public CalendarOperations(AlteregoConfiguration alteregoConfiguration) {
+//        this.alteregoConfiguration = alteregoConfiguration;
+//    }
 
     public Events listCalendarEvents() throws Exception {
 
@@ -51,8 +53,10 @@ public class CalendarOperations {
 
         HttpMethod httpGetMethod = new HttpGetMethod();
 
-        Events events = httpGetMethod.call(Protocol.HTTPS, "www.googleapis.com", null, "/calendar/v3/calendars/mail2jhamb@gmail.com/events", parameters, headers, null, Events.class);
-
-        return events;
+        Calendar calendar = httpGetMethod.call(Protocol.HTTPS, "www.googleapis.com", null, "/calendar/v3/calendars/mail2jhamb@gmail.com/events", parameters, headers, null, Calendar.class);
+//
+//        calendar.get("items");
+//        ((ArrayList) calendar.get("items")).get(0)
+        return null;
     }
 }

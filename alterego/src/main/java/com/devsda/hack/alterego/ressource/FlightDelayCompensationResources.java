@@ -16,17 +16,19 @@ import javax.ws.rs.core.Response;
 @Path(AlteregoConstants.Resources.FlightDelayCompenationAgent)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class FlightDelayCompensationAgent {
+public class FlightDelayCompensationResources {
 
-    private static final Logger log = LoggerFactory.getLogger(FlightDelayCompensationAgent.class);
+    private static final Logger log = LoggerFactory.getLogger(FlightDelayCompensationResources.class);
 
     @Inject
-    private FlightDelayCompensationService fdcService;
+    private FlightDelayCompensationService flightDelayCompensationService;
 
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response handleFlightDelayCompensation() {
         try {
-            fdcService.handleFlightDelayCompensation();
+            flightDelayCompensationService.handleFlightDelayCompensation();
         }catch(Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
