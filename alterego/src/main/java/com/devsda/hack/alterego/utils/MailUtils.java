@@ -1,5 +1,6 @@
 package com.devsda.hack.alterego.utils;
 
+import com.devsda.hack.alterego.constant.AlteregoConstants;
 import com.devsda.hack.alterego.model.BookingInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +34,8 @@ public class MailUtils {
             message.setFrom(new InternetAddress(sender));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
             message.addRecipient(Message.RecipientType.CC, new InternetAddress(bookingInfo.getEmailId()));
-            message.setSubject("Compensation request for delayed flight");
-            message.setText("This is a test mail");
+            message.setSubject(AlteregoConstants.MailConstants.SUBJECT);
+            message.setText(AlteregoConstants.MailConstants.BODY);
             Transport.send(message);
             log.info("Mail successfully sent");
         } catch (MessagingException mex) {

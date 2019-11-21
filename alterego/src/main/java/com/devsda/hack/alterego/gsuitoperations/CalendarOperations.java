@@ -31,7 +31,7 @@ public class CalendarOperations {
         String uri = "/calendar/v3/calendars/{calendarId}/events".replace("{calendarId}", alteregoConfiguration.getCalendarId());
 
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("maxResults", "20");
+        parameters.put("maxResults", "15");
         parameters.put("key", alteregoConfiguration.getApiKey());
 
         Map<String, String> headers = new HashMap<>();
@@ -51,7 +51,7 @@ public class CalendarOperations {
 
         HttpMethod httpGetMethod = new HttpGetMethod();
 
-        Calendar calendar = httpGetMethod.call(Protocol.HTTPS, "www.googleapis.com", null, "/calendar/v3/calendars/mail2jhamb@gmail.com/events", parameters, headers, null, Calendar.class);
+        Calendar calendar = httpGetMethod.call(Protocol.HTTPS, "www.googleapis.com", null, "/calendar/v3/calendars/amanr.rastogi@gmail.com/events", parameters, headers, null, Calendar.class);
         List<LinkedHashMap> items = (List<LinkedHashMap>)calendar.get("items");
         return items;
     }

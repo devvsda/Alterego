@@ -6,6 +6,7 @@ import com.devsda.hack.alterego.utils.FlightUtils;
 import com.devsda.hack.alterego.utils.MailUtils;
 import com.google.inject.Inject;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -21,13 +22,18 @@ public class FlightDelayCompensationService {
 
     public void handleFlightDelayCompensation() throws Exception {
         List<LinkedHashMap> eventItems = calOps.listCalendarEvents();
+        System.out.println("event size [" + eventItems == null? 0 : eventItems.size() + "]");
         if (eventItems != null) {
-            for (LinkedHashMap<String, String> e : eventItems) {
-                String summary = e.get("summary");
-                if (FlightUtils.isFlightEvent(summary) && FlightUtils.isFlightDelayed(summary)) {
-                    BookingInfo bookingInfo = FlightUtils.getBookingInfo(e);
-                    //To Do: mail sending part should be async
-                    MailUtils.sendMail(bookingInfo);
+            for (LinkedHashMap e : eventItems) {
+                String summary = e.get("summary").toString();
+                if(FlightUtils.isFlightEvent(summary)) {
+                    String dateTime = ((HashMap)e.get("start")).get("dateTime").toString();
+                    String departDate = dateTime.split("T")[0];
+                    if (FlightUtils.isFlightDelayed(summary, departDate)) {
+                        BookingInfo bookingInfo = FlightUtils.getBookingInfo(e);
+                        //To Do: mail sending part should be async
+                        MailUtils.sendMail(bookingInfo);
+                    }
                 }
             }
         }

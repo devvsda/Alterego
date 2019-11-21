@@ -2,15 +2,20 @@ package com.devsda.hack.alterego.utils;
 
 import com.devsda.hack.alterego.model.BookingInfo;
 import com.devsda.hack.alterego.model.CarrierInfo;
+import com.devsda.utils.httputils.constants.Protocol;
+import com.devsda.utils.httputils.methods.HttpGetMethod;
+import com.google.api.client.json.GenericJson;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventAttendee;
 import com.google.common.base.Strings;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class FlightUtils {
+
+    private static final String flightStatusHost = "api.flightstats.com";
+    private static final String flightStatusApiPath = "/flex/flightstatus/rest/v2/json/flight/status" +
+            "/#carrierName/#carrierId/dep/#year/#month/#date";
 
     private static boolean[] flightDelayFake = {true, true, true, false};
     public static boolean isFlightEvent(String eventSummary) {
@@ -30,14 +35,29 @@ public class FlightUtils {
         return null;
     }
 
-    //probability of returning true is 75%
-    public static boolean isFlightDelayed(String eventSummary) {
-        Random rand = new Random();
-        int idx = rand.nextInt(4);
-        return flightDelayFake[idx];
-        //to do : if flight stats or some other service works, we can see if below information is required
-        //CarrierInfo carrierInfo = getCarrierInfo(eventSummary);
-        //return true;
+    public static boolean isFlightDelayed(String eventSummary, String date) throws Exception {
+
+        return true;
+        //uncomment the below code to make real flight status check
+        /*CarrierInfo carrierInfo = getCarrierInfo(eventSummary);
+        String[] dateParts = date.split("-");
+        String path = flightStatusApiPath
+                .replaceFirst("#carrierName", carrierInfo.getCarrierName())
+                .replaceFirst("#carrierId", carrierInfo.getCarrierId())
+                .replaceFirst("#year", dateParts[0])
+                .replaceFirst("#month", dateParts[1])
+                .replaceFirst("#date", dateParts[2]);
+        HttpGetMethod flightStatusGetMethod = new HttpGetMethod();
+        Map<String, String> header = new HashMap<String, String>();
+        header.put("appId", "8eced9ab");
+        header.put("appKey", "b1275923257d00c205dd786ebef20e77");
+        Map<String, String> param = new HashMap<String, String>();
+        header.put("utc", "false");
+        GenericJson status = flightStatusGetMethod.call(Protocol.HTTPS, flightStatusHost, null, path, param, header, null, GenericJson.class);
+        List<Map> flightStatuses = (List<Map>) status.get("flightStatuses");
+        Map delays = (Map) flightStatuses.get(0).get("delays");
+        // if delays map is empty, there was no delay
+        return !delays.isEmpty();*/
     }
 
     public static BookingInfo getBookingInfo(LinkedHashMap event) {
@@ -46,5 +66,12 @@ public class FlightUtils {
         BookingInfo bookingInfo = new BookingInfo();
         bookingInfo.setEmailId(email);
         return bookingInfo;
+    }
+
+    public static void main (String[] x) throws  Exception{
+        String date = "2019-11-20";
+        boolean status = isFlightDelayed("Flight to New Delhi (AI 127)", date);
+        System.out.println(status);
+
     }
 }
